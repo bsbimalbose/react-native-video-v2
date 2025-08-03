@@ -2127,7 +2127,7 @@ public class ReactExoplayerView extends FrameLayout implements
                                 isMatch = true;
                             } else if ("index".equals(type)) {
                                 int targetIndex = ReactBridgeUtils.safeParseInt(value, -1);
-                                if (targetIndex == trackIndex) {
+                                if (targetIndex == groupIndex) {
                                     isMatch = true;
                                 }
                             }
