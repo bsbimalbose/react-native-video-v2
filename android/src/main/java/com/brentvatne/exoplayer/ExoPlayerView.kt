@@ -15,6 +15,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.DefaultTimeBar
 import androidx.media3.ui.PlayerView
+import androidx.media3.ui.CaptionStyleCompat
 import com.brentvatne.common.api.ResizeMode
 import com.brentvatne.common.api.SubtitleStyle
 
@@ -123,13 +124,21 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
                 style.paddingTop,
                 style.paddingRight,
                 style.paddingBottom
-            )
+            )  
 
             if (style.opacity != 0.0f) {
                 subtitleView.alpha = style.opacity
                 subtitleView.visibility = android.view.View.VISIBLE
             } else {
-                subtitleView.visibility = android.view.View.GONE
+                val captionStyle = CaptionStyleCompat(
+                    Color.WHITE,              // Subtitle text color
+                    Color.TRANSPARENT,        // Background color
+                    Color.TRANSPARENT,        // Window color
+                    CaptionStyleCompat.EDGE_TYPE_DROP_SHADOW, // Edge type
+                    Color.BLACK,              // Edge color
+                    null                      // Typeface (null for default)
+                )
+                subtitleView.setStyle(captionStyle)
             }
         }
         localStyle = style
