@@ -244,6 +244,7 @@ public class ReactExoplayerView extends FrameLayout implements
     private boolean preventsDisplaySleepDuringVideoPlayback = true;
     private float mProgressUpdateInterval = 250.0f;
     protected boolean playInBackground = false;
+    private boolean softwareDecode = false
     private boolean mReportBandwidth = false;
     private boolean controls = false;
 
@@ -726,7 +727,7 @@ public class ReactExoplayerView extends FrameLayout implements
 
         DefaultRenderersFactory renderersFactory =
                 new DefaultRenderersFactory(getContext())
-                        .setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF)
+                        .setExtensionRendererMode(this.softwareDecode ? DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF)
                         .setEnableDecoderFallback(true)
                         .forceEnableMediaCodecAsynchronousQueueing();
 
@@ -2581,6 +2582,10 @@ public class ReactExoplayerView extends FrameLayout implements
 
     public void setPlayInBackground(boolean playInBackground) {
         this.playInBackground = playInBackground;
+    }
+
+    public void setSoftwareDecode(boolean softwareDecode) {
+        this.softwareDecode = softwareDecode;
     }
 
     public void setDisableFocus(boolean disableFocus) {
