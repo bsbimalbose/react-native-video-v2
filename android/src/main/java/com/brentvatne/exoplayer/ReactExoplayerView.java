@@ -244,7 +244,7 @@ public class ReactExoplayerView extends FrameLayout implements
     private boolean preventsDisplaySleepDuringVideoPlayback = true;
     private float mProgressUpdateInterval = 250.0f;
     protected boolean playInBackground = false;
-    private boolean softwareDecode = false
+    private boolean softwareDecode = false;
     private boolean mReportBandwidth = false;
     private boolean controls = false;
 
