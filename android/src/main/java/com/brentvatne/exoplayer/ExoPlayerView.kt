@@ -139,6 +139,8 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
                     null                      // Typeface (null for default)
                 )
                 subtitleView.setStyle(captionStyle)
+                subtitleView.alpha = 1.0f
+                subtitleView.visibility = android.view.View.VISIBLE
             }
         }
         localStyle = style
