@@ -1,7 +1,6 @@
 package com.brentvatne.exoplayer
 
 import android.content.Context
-import android.graphics.Color
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
@@ -16,16 +15,17 @@ import androidx.media3.common.C
 import androidx.media3.common.Player
 import androidx.media3.common.Tracks
 import androidx.media3.common.VideoSize
-import androidx.media3.ui.CaptionStyleCompat
 import androidx.media3.common.text.Cue
 import androidx.media3.common.util.Assertions
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.subtitleLayout
+import androidx.media3.ui.SubtitleView
 import com.brentvatne.common.api.ResizeMode
 import com.brentvatne.common.api.SubtitleStyle
 import com.brentvatne.common.api.ViewType
 import com.brentvatne.common.toolbox.DebugLog
+import androidx.media3.ui.CaptionStyleCompat
+import android.graphics.Color
 
 @UnstableApi
 class ExoPlayerView(private val context: Context) :
@@ -35,7 +35,7 @@ class ExoPlayerView(private val context: Context) :
     var surfaceView: View? = null
         private set
     private var shutterView: View
-    private var subtitleLayout: subtitleLayout
+    private var subtitleLayout: SubtitleView
     private var layout: AspectRatioFrameLayout
     private var componentListener: ComponentListener
     private var player: ExoPlayer? = null
@@ -68,7 +68,7 @@ class ExoPlayerView(private val context: Context) :
         shutterView.layoutParams = layoutParams
         shutterView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.black))
 
-        subtitleLayout = subtitleLayout(context)
+        subtitleLayout = SubtitleView(context)
         subtitleLayout.layoutParams = layoutParams
         subtitleLayout.setUserDefaultStyle()
         subtitleLayout.setUserDefaultTextSize()
@@ -130,7 +130,7 @@ class ExoPlayerView(private val context: Context) :
             style.paddingTop,
             style.paddingBottom
         )
-        if (style.opacity == 0.0f) {
+  if (style.opacity == 0.0f) {
                   val captionStyle = CaptionStyleCompat(
                     Color.WHITE,              // Subtitle text color
                     Color.TRANSPARENT,        // Background color
@@ -170,7 +170,6 @@ class ExoPlayerView(private val context: Context) :
                 subtitleLayout.alpha = style.opacity
                 subtitleLayout.visibility = android.view.View.VISIBLE
             }
-
         if (localStyle.subtitlesFollowVideo != style.subtitlesFollowVideo) {
             // No need to manipulate layout if value didn't change
             if (style.subtitlesFollowVideo) {
