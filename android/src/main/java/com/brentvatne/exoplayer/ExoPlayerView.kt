@@ -128,12 +128,47 @@ class ExoPlayerView(private val context: Context) :
             style.paddingTop,
             style.paddingBottom
         )
-        if (style.opacity != 0.0f) {
-            subtitleLayout.alpha = style.opacity
-            subtitleLayout.visibility = View.VISIBLE
-        } else {
-            subtitleLayout.visibility = View.GONE
-        }
+        if (style.opacity == 0.0f) {
+                  val captionStyle = CaptionStyleCompat(
+                    Color.WHITE,              // Subtitle text color
+                    Color.TRANSPARENT,        // Background color
+                    Color.TRANSPARENT,        // Window color
+                    CaptionStyleCompat.EDGE_TYPE_DROP_SHADOW, // Shadow type
+                    Color.BLACK,              // Edge color
+                    null                      // Typeface (null for default)
+                )
+                subtitleView.setStyle(captionStyle)
+                subtitleView.alpha = 1.0f
+                subtitleView.visibility = android.view.View.VISIBLE
+            } else if(style.opacity == 0.5f) {
+                 val captionStyle = CaptionStyleCompat(
+                    Color.WHITE,              // Subtitle text color
+                    Color.TRANSPARENT,        // Background color
+                    Color.TRANSPARENT,        // Window color
+                    CaptionStyleCompat.EDGE_TYPE_OUTLINE, // Edge type
+                    Color.BLACK,              // Edge color
+                    null                      // Typeface (null for default)
+                )
+                subtitleView.setStyle(captionStyle)
+                subtitleView.alpha = 1.0f
+                subtitleView.visibility = android.view.View.VISIBLE
+            } else if(style.opacity == 0.75f) {
+                 val captionStyle = CaptionStyleCompat(
+                    Color.YELLOW,              // Subtitle text color
+                    Color.TRANSPARENT,        // Background color
+                    Color.TRANSPARENT,        // Window color
+                    CaptionStyleCompat.EDGE_TYPE_DROP_SHADOW, // Shadow type
+                    Color.BLACK,              // Edge color
+                    null                      // Typeface (null for default)
+                )
+                subtitleView.setStyle(captionStyle)
+                subtitleView.alpha = 1.0f
+                subtitleView.visibility = android.view.View.VISIBLE
+            } else {
+                subtitleView.alpha = style.opacity
+                subtitleView.visibility = android.view.View.VISIBLE
+            }
+
         if (localStyle.subtitlesFollowVideo != style.subtitlesFollowVideo) {
             // No need to manipulate layout if value didn't change
             if (style.subtitlesFollowVideo) {
