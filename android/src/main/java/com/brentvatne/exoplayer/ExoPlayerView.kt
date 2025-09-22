@@ -1,6 +1,7 @@
 package com.brentvatne.exoplayer
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
@@ -15,11 +16,12 @@ import androidx.media3.common.C
 import androidx.media3.common.Player
 import androidx.media3.common.Tracks
 import androidx.media3.common.VideoSize
+import androidx.media3.ui.CaptionStyleCompat
 import androidx.media3.common.text.Cue
 import androidx.media3.common.util.Assertions
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.SubtitleView
+import androidx.media3.ui.subtitleLayout
 import com.brentvatne.common.api.ResizeMode
 import com.brentvatne.common.api.SubtitleStyle
 import com.brentvatne.common.api.ViewType
@@ -33,7 +35,7 @@ class ExoPlayerView(private val context: Context) :
     var surfaceView: View? = null
         private set
     private var shutterView: View
-    private var subtitleLayout: SubtitleView
+    private var subtitleLayout: subtitleLayout
     private var layout: AspectRatioFrameLayout
     private var componentListener: ComponentListener
     private var player: ExoPlayer? = null
@@ -66,7 +68,7 @@ class ExoPlayerView(private val context: Context) :
         shutterView.layoutParams = layoutParams
         shutterView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.black))
 
-        subtitleLayout = SubtitleView(context)
+        subtitleLayout = subtitleLayout(context)
         subtitleLayout.layoutParams = layoutParams
         subtitleLayout.setUserDefaultStyle()
         subtitleLayout.setUserDefaultTextSize()
@@ -137,9 +139,9 @@ class ExoPlayerView(private val context: Context) :
                     Color.BLACK,              // Edge color
                     null                      // Typeface (null for default)
                 )
-                subtitleView.setStyle(captionStyle)
-                subtitleView.alpha = 1.0f
-                subtitleView.visibility = android.view.View.VISIBLE
+                subtitleLayout.setStyle(captionStyle)
+                subtitleLayout.alpha = 1.0f
+                subtitleLayout.visibility = android.view.View.VISIBLE
             } else if(style.opacity == 0.5f) {
                  val captionStyle = CaptionStyleCompat(
                     Color.WHITE,              // Subtitle text color
@@ -149,9 +151,9 @@ class ExoPlayerView(private val context: Context) :
                     Color.BLACK,              // Edge color
                     null                      // Typeface (null for default)
                 )
-                subtitleView.setStyle(captionStyle)
-                subtitleView.alpha = 1.0f
-                subtitleView.visibility = android.view.View.VISIBLE
+                subtitleLayout.setStyle(captionStyle)
+                subtitleLayout.alpha = 1.0f
+                subtitleLayout.visibility = android.view.View.VISIBLE
             } else if(style.opacity == 0.75f) {
                  val captionStyle = CaptionStyleCompat(
                     Color.YELLOW,              // Subtitle text color
@@ -161,12 +163,12 @@ class ExoPlayerView(private val context: Context) :
                     Color.BLACK,              // Edge color
                     null                      // Typeface (null for default)
                 )
-                subtitleView.setStyle(captionStyle)
-                subtitleView.alpha = 1.0f
-                subtitleView.visibility = android.view.View.VISIBLE
+                subtitleLayout.setStyle(captionStyle)
+                subtitleLayout.alpha = 1.0f
+                subtitleLayout.visibility = android.view.View.VISIBLE
             } else {
-                subtitleView.alpha = style.opacity
-                subtitleView.visibility = android.view.View.VISIBLE
+                subtitleLayout.alpha = style.opacity
+                subtitleLayout.visibility = android.view.View.VISIBLE
             }
 
         if (localStyle.subtitlesFollowVideo != style.subtitlesFollowVideo) {
