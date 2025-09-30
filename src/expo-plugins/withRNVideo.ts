@@ -17,9 +17,9 @@ const withRNVideo: ConfigPlugin<ConfigProps> = (config, props = {}) => {
   if (props.enableNotificationControls) {
     config = withNotificationControls(config, props.enableNotificationControls);
     androidPermissions.push('android.permission.FOREGROUND_SERVICE');
-    androidPermissions.push(
-      'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK',
-    );
+    // androidPermissions.push(
+    //   'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK',
+    // );
   }
 
   if (props.enableAndroidPictureInPicture) {
