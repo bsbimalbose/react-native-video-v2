@@ -121,6 +121,10 @@ class ExoPlayerView(private val context: Context) :
         subtitleLayout.setUserDefaultStyle()
         subtitleLayout.setUserDefaultTextSize()
 
+        // Keep embedded styles (colors, italics, etc.) but ignore *font sizes*
+        subtitleLayout.setApplyEmbeddedStyles(true)
+        subtitleLayout.setApplyEmbeddedFontSizes(false)
+
         if (style.fontSize > 0) {
             subtitleLayout.setFixedTextSize(TypedValue.COMPLEX_UNIT_SP, style.fontSize.toFloat())
         }
@@ -130,46 +134,47 @@ class ExoPlayerView(private val context: Context) :
             style.paddingTop,
             style.paddingBottom
         )
-  if (style.opacity == 0.0f) {
-                  val captionStyle = CaptionStyleCompat(
-                    Color.WHITE,              // Subtitle text color
-                    Color.TRANSPARENT,        // Background color
-                    Color.TRANSPARENT,        // Window color
-                    CaptionStyleCompat.EDGE_TYPE_DROP_SHADOW, // Shadow type
-                    Color.BLACK,              // Edge color
-                    null                      // Typeface (null for default)
-                )
-                subtitleLayout.setStyle(captionStyle)
-                subtitleLayout.alpha = 1.0f
-                subtitleLayout.visibility = android.view.View.VISIBLE
-            } else if(style.opacity == 0.5f) {
-                 val captionStyle = CaptionStyleCompat(
-                    Color.WHITE,              // Subtitle text color
-                    Color.TRANSPARENT,        // Background color
-                    Color.TRANSPARENT,        // Window color
-                    CaptionStyleCompat.EDGE_TYPE_OUTLINE, // Edge type
-                    Color.BLACK,              // Edge color
-                    null                      // Typeface (null for default)
-                )
-                subtitleLayout.setStyle(captionStyle)
-                subtitleLayout.alpha = 1.0f
-                subtitleLayout.visibility = android.view.View.VISIBLE
-            } else if(style.opacity == 0.75f) {
-                 val captionStyle = CaptionStyleCompat(
-                    Color.YELLOW,              // Subtitle text color
-                    Color.TRANSPARENT,        // Background color
-                    Color.TRANSPARENT,        // Window color
-                    CaptionStyleCompat.EDGE_TYPE_DROP_SHADOW, // Shadow type
-                    Color.BLACK,              // Edge color
-                    null                      // Typeface (null for default)
-                )
-                subtitleLayout.setStyle(captionStyle)
-                subtitleLayout.alpha = 1.0f
-                subtitleLayout.visibility = android.view.View.VISIBLE
-            } else {
-                subtitleLayout.alpha = style.opacity
-                subtitleLayout.visibility = android.view.View.VISIBLE
-            }
+        if (style.opacity == 0.0f) {
+                val captionStyle = CaptionStyleCompat(
+                Color.WHITE,              // Subtitle text color
+                Color.TRANSPARENT,        // Background color
+                Color.TRANSPARENT,        // Window color
+                CaptionStyleCompat.EDGE_TYPE_DROP_SHADOW, // Shadow type
+                Color.BLACK,              // Edge color
+                null                      // Typeface (null for default)
+            )
+            subtitleLayout.setStyle(captionStyle)
+            subtitleLayout.alpha = 1.0f
+            subtitleLayout.visibility = android.view.View.VISIBLE
+        } else if(style.opacity == 0.5f) {
+                val captionStyle = CaptionStyleCompat(
+                Color.WHITE,              // Subtitle text color
+                Color.TRANSPARENT,        // Background color
+                Color.TRANSPARENT,        // Window color
+                CaptionStyleCompat.EDGE_TYPE_OUTLINE, // Edge type
+                Color.BLACK,              // Edge color
+                null                      // Typeface (null for default)
+            )
+            subtitleLayout.setStyle(captionStyle)
+            subtitleLayout.alpha = 1.0f
+            subtitleLayout.visibility = android.view.View.VISIBLE
+        } else if(style.opacity == 0.75f) {
+                val captionStyle = CaptionStyleCompat(
+                Color.YELLOW,              // Subtitle text color
+                Color.TRANSPARENT,        // Background color
+                Color.TRANSPARENT,        // Window color
+                CaptionStyleCompat.EDGE_TYPE_DROP_SHADOW, // Shadow type
+                Color.BLACK,              // Edge color
+                null                      // Typeface (null for default)
+            )
+            subtitleLayout.setStyle(captionStyle)
+            subtitleLayout.alpha = 1.0f
+            subtitleLayout.visibility = android.view.View.VISIBLE
+        } else {
+            subtitleLayout.alpha = style.opacity
+            subtitleLayout.visibility = android.view.View.VISIBLE
+        }
+        
         if (localStyle.subtitlesFollowVideo != style.subtitlesFollowVideo) {
             // No need to manipulate layout if value didn't change
             if (style.subtitlesFollowVideo) {
