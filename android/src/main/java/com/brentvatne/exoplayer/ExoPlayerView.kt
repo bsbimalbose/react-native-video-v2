@@ -160,7 +160,7 @@ class ExoPlayerView(private val context: Context) :
             subtitleLayout.visibility = android.view.View.VISIBLE
         } else if(style.opacity == 0.75f) {
                 val captionStyle = CaptionStyleCompat(
-                Color.YELLOW,              // Subtitle text color
+                Color.LTGRAY,              // Subtitle text color
                 Color.TRANSPARENT,        // Background color
                 Color.TRANSPARENT,        // Window color
                 CaptionStyleCompat.EDGE_TYPE_DROP_SHADOW, // Shadow type
