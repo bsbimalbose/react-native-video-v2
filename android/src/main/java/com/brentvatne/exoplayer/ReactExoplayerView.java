@@ -40,6 +40,7 @@ import androidx.annotation.WorkerThread;
 import androidx.media3.common.AudioAttributes;
 import androidx.media3.common.C;
 import androidx.media3.common.Format;
+import androidx.media3.common.MimeTypes;
 import androidx.media3.common.MediaItem;
 import androidx.media3.common.MediaMetadata;
 import androidx.media3.common.Metadata;
@@ -847,8 +848,12 @@ public class ReactExoplayerView extends FrameLayout implements
     private void initializePlayerCore(ReactExoplayerView self) {
         ExoTrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory();
         self.trackSelector = new DefaultTrackSelector(getContext(), videoTrackSelectionFactory);
+        // DV fallback: force HDR10 base layer on DV-unsupported devices (reject Dolby Vision, prefer HEVC BL)
         self.trackSelector.setParameters(trackSelector.buildUponParameters()
-                .setMaxVideoBitrate(maxBitRate == 0 ? Integer.MAX_VALUE : maxBitRate));
+                .setPreferredVideoMimeTypes(MimeTypes.VIDEO_H265)
+                .setExcludedVideoMimeTypes(MimeTypes.VIDEO_DOLBY_VISION)
+                .setMaxVideoBitrate(maxBitRate == 0 ? Integer.MAX_VALUE : maxBitRate)
+                .setForceHighestSupportedBitrate(false));
 
         DefaultAllocator allocator = new DefaultAllocator(true, C.DEFAULT_BUFFER_SEGMENT_SIZE);
         RNVLoadControl loadControl = new RNVLoadControl(
