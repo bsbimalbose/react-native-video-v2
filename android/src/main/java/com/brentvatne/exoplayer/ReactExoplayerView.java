@@ -846,12 +846,11 @@ public class ReactExoplayerView extends FrameLayout implements
     }
 
     private void initializePlayerCore(ReactExoplayerView self) {
-        ExoTrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory();
+        // DV fallback: reject Dolby Vision tracks so HEVC HDR10 base layer is selected (DV P7 on unsupported devices)
+        ExoTrackSelection.Factory videoTrackSelectionFactory = new DvFallbackTrackSelectionFactory();
         self.trackSelector = new DefaultTrackSelector(getContext(), videoTrackSelectionFactory);
-        // DV fallback: force HDR10 base layer on DV-unsupported devices (reject Dolby Vision, prefer HEVC BL)
         self.trackSelector.setParameters(trackSelector.buildUponParameters()
                 .setPreferredVideoMimeTypes(MimeTypes.VIDEO_H265)
-                .setExcludedVideoMimeTypes(MimeTypes.VIDEO_DOLBY_VISION)
                 .setMaxVideoBitrate(maxBitRate == 0 ? Integer.MAX_VALUE : maxBitRate)
                 .setForceHighestSupportedBitrate(false));
 
